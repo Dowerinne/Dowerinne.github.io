@@ -123,7 +123,7 @@
                         
                             <div class="blank_box"></div>
                             <span class="meta">
-                                Words <span class="post-count">665</span> and
+                                Words <span class="post-count">702</span> and
                                 Reading Time <span class="post-count">3</span> Minutes
                             </span>
                             <div class="blank_box"></div>
@@ -185,7 +185,7 @@
 
                         
                         <li>
-                            <a href="/about/">About</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
@@ -199,13 +199,6 @@
 
                         
                         <li>
-                            <a href="/tags/">Tags</a>
-                        </li>
-                        
-                    
-
-                        
-                        <li>
                             <a href="/photography/">Photography</a>
                         </li>
                         
@@ -213,7 +206,14 @@
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
@@ -291,9 +291,11 @@
 <p>配置：见Configuration一节【重要】，是修改<code>F:\myBlog_241208\blog\_config.yml</code>。 <font color='red'>未完待续，继续弄</font></p>
 <h4 id="配置记录："><a href="#配置记录：" class="headerlink" title="配置记录："></a>配置记录：</h4><h5 id="1-修改header-img：图片放入img-文件夹中。"><a href="#1-修改header-img：图片放入img-文件夹中。" class="headerlink" title="1.修改header_img：图片放入img/文件夹中。"></a>1.修改header_img：图片放入<code>img/</code>文件夹中。</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># Site settings</span><br><span class="line">SEOTitle: Dowerinne&#39;s blog</span><br><span class="line">email: </span><br><span class="line">description: &quot;A hexo theme&quot;</span><br><span class="line">keyword: &quot;hexo-theme-snail&quot;</span><br><span class="line">header-img: img&#x2F;header_img&#x2F;sunset.jpg</span><br><span class="line">signature: false #show signature</span><br><span class="line">signature-img: img&#x2F;signature&#x2F;dusign.png</span><br></pre></td></tr></table></figure>
 <p>注意这里的<code>img/</code>文件夹是<code>F:\myBlog_241208\blog\source\img</code>，并不是<code>F:\myBlog_241208\blog\img</code>！！</p>
-<h4 id="2-每篇文章的header-img："><a href="#2-每篇文章的header-img：" class="headerlink" title="2.每篇文章的header_img："></a>2.每篇文章的header_img：</h4><p>是放在<code>F:\myBlog_241208\blog\public\img</code>文件夹中！</p>
+<h4 id="2-每篇文章的header-img："><a href="#2-每篇文章的header-img：" class="headerlink" title="2.每篇文章的header_img："></a>2.每篇文章的header_img：</h4><p>图片是放在<code>F:\myBlog_241208\blog\source\img</code>文件夹中！</p>
 <p>修改每个md文件最上方的<code>header-img: ../../../../img/default.jpg</code>，把default.jpg换成目标图片即可。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">路径解释：..&#x2F;..&#x2F;..&#x2F;..&#x2F;img&#x2F;wallpaper_01.jpg</span><br><span class="line">并不是从md当前的位置出发 F:\myBlog_241208\blog\source\_posts，</span><br><span class="line">而是从这个位置出发：F:\myBlog_241208\blog\public\2024\12\09\博客搭建记录-20241208</span><br><span class="line"></span><br><span class="line">其他md以此类推。</span><br></pre></td></tr></table></figure>
+<p>但是修改的时候，图片还是要放在<code>F:\myBlog_241208\blog\source\img</code>文件夹中，</p>
+<p>而不是放到<code>F:\myBlog_241208\blog\public\img</code>里面。</p>
 <h4 id="hexo命令整理：【待补充继续学习】-https-hexo-io"><a href="#hexo命令整理：【待补充继续学习】-https-hexo-io" class="headerlink" title="hexo命令整理：【待补充继续学习】 https://hexo.io/"></a>hexo命令整理：【<font color='red'>待补充继续学习</font>】 <a href="https://hexo.io/" target="_blank" rel="noopener">https://hexo.io/</a></h4><p>1.<code>hexo new &lt;articlename&gt;</code>：新建一篇博文，存放在<code>F:\myBlog_241208\blog\source\_posts\&lt;articlename&gt;.md</code>，都是markdown格式，用typora书写。</p>
 <blockquote>
 <p>所有博文都在<code>F:\myBlog_241208\blog\source\_posts\</code>目录下。</p>
