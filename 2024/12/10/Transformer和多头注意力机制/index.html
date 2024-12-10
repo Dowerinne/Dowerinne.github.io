@@ -185,6 +185,13 @@
 
                         
                         <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
                             <a href="/archive/">Archives</a>
                         </li>
                         
@@ -199,13 +206,6 @@
 
                         
                         <li>
-                            <a href="/photography/">Photography</a>
-                        </li>
-                        
-                    
-
-                        
-                        <li>
                             <a href="/tags/">Tags</a>
                         </li>
                         
@@ -213,7 +213,7 @@
 
                         
                         <li>
-                            <a href="/about/">About</a>
+                            <a href="/photography/">Photography</a>
                         </li>
                         
                     
@@ -361,9 +361,9 @@ y_{ij} = \gamma_j \hat{x}_{ij} + \beta_j</script><p>其中，$\gamma_j$是缩放
 <p>Encoder和Decoder的输入输出：</p>
 <p>Encoder的输入：源文本的单词表示矩阵$X_{n,d}$，  如“我 有 一只 猫”，共4个单词</p>
 <p>Encoder的输出：信息编码矩阵$C_{n,d}$，<strong>与$X$的维度一致</strong>，<script type="math/tex">（n=seq\_len,d=emd\_size）</script></p>
-<p>Decoder的输入：目标文本的单词表示矩阵$X_{n,d}$，如”<Begin> I have a cat”，共5个单词</p>
+<p>Decoder的输入：目标文本的单词表示矩阵$X_{n,d}$，如”\<Begin\> I have a cat”，共5个单词</p>
 <p>（Encoder的输出矩阵$C$会输入到Decoder的第二个$Multi-Head \ Attention$中）</p>
-<p>Decoder的输出：预测的单词序列，如“I have a cat <end>”。</p>
+<p>Decoder的输出：预测的单词序列，如“I have a cat \<end\>”。</p>
 
 
         <hr />
@@ -749,7 +749,7 @@ y_{ij} = \gamma_j \hat{x}_{ij} + \beta_j</script><p>其中，$\gamma_j$是缩放
         
 
         
-            <script type="text/javascript" src="/js/mouse-click.js" content='[&quot;🌱&quot;,&quot;just do it&quot;,&quot;🍀&quot;]' color='[&quot;rgb(121,93,179)&quot; ,&quot;rgb(76,180,231)&quot; ,&quot;rgb(184,90,154)&quot;]'></script>
+            <script type="text/javascript" src="/js/mouse-click.js" content='[&#34;🌱&#34;,&#34;just do it&#34;,&#34;🍀&#34;]' color='[&#34;rgb(121,93,179)&#34; ,&#34;rgb(76,180,231)&#34; ,&#34;rgb(184,90,154)&#34;]'></script>
         
 
         <!-- background effects end -->
@@ -759,21 +759,6 @@ y_{ij} = \gamma_j \hat{x}_{ij} + \beta_j</script><p>其中，$\gamma_j$是缩放
     
         <script src="/js/ribbonDynamic.js"></script>
     
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 </body>
 
 </html>
