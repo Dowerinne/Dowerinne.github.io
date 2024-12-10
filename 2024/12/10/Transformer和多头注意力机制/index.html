@@ -185,6 +185,13 @@
 
                         
                         <li>
+                            <a href="/archive/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
                             <a href="/about/">About</a>
                         </li>
                         
@@ -192,7 +199,7 @@
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
+                            <a href="/tags/">Tags</a>
                         </li>
                         
                     
@@ -207,13 +214,6 @@
                         
                         <li>
                             <a href="/photography/">Photography</a>
-                        </li>
-                        
-                    
-
-                        
-                        <li>
-                            <a href="/tags/">Tags</a>
                         </li>
                         
                     
@@ -268,7 +268,7 @@
       >
         <h1 id="多头自注意力机制与Transformer"><a href="#多头自注意力机制与Transformer" class="headerlink" title="多头自注意力机制与Transformer"></a>多头自注意力机制与Transformer</h1><p>2024.12.06整理</p>
 <h4 id="自注意力机制（计算过程见：https-zhuanlan-zhihu-com-p-338817680-3-2节与3-3节）"><a href="#自注意力机制（计算过程见：https-zhuanlan-zhihu-com-p-338817680-3-2节与3-3节）" class="headerlink" title="自注意力机制（计算过程见：https://zhuanlan.zhihu.com/p/338817680 3.2节与3.3节）"></a>自注意力机制（计算过程见：<a href="https://zhuanlan.zhihu.com/p/338817680" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/338817680</a> 3.2节与3.3节）</h4><p>有$M$个特征（或者单词）   （又叫seq_len: 句子长度,即单词数量）</p>
-<p>每个单词用一个$d$维向量表示，记作矩阵$X_{M<em>d}$，矩阵有$M$行，<em>*每行对应一个特征/单词</em></em>，每行是$d$维。</p>
+<p>每个单词用一个$d$维向量表示，记作矩阵<script type="math/tex">X_{M*d}</script>，矩阵有$M$行，<strong>每行对应一个特征/单词</strong>，每行是$d$维。</p>
 <p>Self-Attention 的输入是矩阵$X$，则可以使用线性变换矩阵$W_Q,W_K,W_V$计算得到$Q,K,V$矩阵。</p>
 <p>$W_Q,W_K,W_V$的维度是$d<em>d^{\prime}$，得到的$Q,K,V$矩阵的维度是$M</em>d’$。 <strong>$X, Q, K, V$的每一行都对应一个单词。</strong></p>
 <p>矩阵乘法：</p>
