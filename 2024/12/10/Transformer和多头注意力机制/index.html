@@ -192,14 +192,14 @@
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
+                            <a href="/photography/">Photography</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/photography/">Photography</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
@@ -363,7 +363,7 @@ y_{ij} = \gamma_j \hat{x}_{ij} + \beta_j</script><p>其中，$\gamma_j$是缩放
 <p>Encoder的输出：信息编码矩阵$C_{n,d}$，<strong>与$X$的维度一致</strong>，<script type="math/tex">（n=seq\_len,d=emd\_size）</script></p>
 <p>Decoder的输入：目标文本的单词表示矩阵$X_{n,d}$，如”\<Begin\> I have a cat”，共5个单词</p>
 <p>（Encoder的输出矩阵$C$会输入到Decoder的第二个$Multi-Head \ Attention$中）</p>
-<p>Decoder的输出：预测的单词序列，如“I have a cat \\<end\\>”。</p>
+<p>Decoder的输出：预测的单词序列，如“I have a cat <end>”。</p>
 
 
         <hr />
