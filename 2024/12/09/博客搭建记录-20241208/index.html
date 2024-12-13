@@ -192,13 +192,6 @@
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
-                        </li>
-                        
-                    
-
-                        
-                        <li>
                             <a href="/about/">About</a>
                         </li>
                         
@@ -206,7 +199,7 @@
 
                         
                         <li>
-                            <a href="/tags/">Tags</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
@@ -214,6 +207,13 @@
                         
                         <li>
                             <a href="/photography/">Photography</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
                         </li>
                         
                     
@@ -296,7 +296,8 @@
 <p>而不是放到<code>F:\myBlog_241208\blog\public\img</code>里面。</p>
 <h5 id="3-LaTeX-MarkDown数学公式相关："><a href="#3-LaTeX-MarkDown数学公式相关：" class="headerlink" title="3.LaTeX/MarkDown数学公式相关："></a>3.LaTeX/MarkDown数学公式相关：</h5><p>①如果md文档里有数学公式需要渲染，文档最上面加上<code>mathjax: true</code>，例如：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">title: Transformer和多头注意力机制</span><br><span class="line">......</span><br><span class="line">date: 2024-12-10 23:16:05</span><br><span class="line">mathjax: true</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
-<p>②所有的公式都要写成<script type="math/tex">$...$$$，而不是</script>…<script type="math/tex">因为如果</script>…$$里面有<code>*</code>，而同一行又有加粗字体<code>**...**</code>，页面上渲染会有问题！！</p>
+<p>②所有的公式都要写成<script type="math/tex">$...$$$，而不是</script>…$$  </p>
+<p>因为如果<script type="math/tex">...</script>里面有<code>*</code>，而同一行又有加粗字体<code>**...**</code>，页面上渲染会有问题！！</p>
 <p>或者是直接插入公式块。</p>
 <p>③尖括号的渲染问题：如果想在文档中显示尖括号，即&lt; 和 &gt;，写成<code>&amp;lt;</code>和<code>&amp;gt;</code></p>
 <h4 id="hexo命令整理：【待补充继续学习】-https-hexo-io"><a href="#hexo命令整理：【待补充继续学习】-https-hexo-io" class="headerlink" title="hexo命令整理：【待补充继续学习】 https://hexo.io/"></a>hexo命令整理：【<font color='red'>待补充继续学习</font>】 <a href="https://hexo.io/" target="_blank" rel="noopener">https://hexo.io/</a></h4><p>1.<code>hexo new &lt;articlename&gt;</code>：新建一篇博文，存放在<code>F:\myBlog_241208\blog\source\_posts\&lt;articlename&gt;.md</code>，都是markdown格式，用typora书写。</p>
@@ -706,7 +707,7 @@
         
 
         
-            <script type="text/javascript" src="/js/mouse-click.js" content='[&quot;🌱&quot;,&quot;just do it&quot;,&quot;🍀&quot;]' color='[&quot;rgb(121,93,179)&quot; ,&quot;rgb(76,180,231)&quot; ,&quot;rgb(184,90,154)&quot;]'></script>
+            <script type="text/javascript" src="/js/mouse-click.js" content='[&#34;🌱&#34;,&#34;just do it&#34;,&#34;🍀&#34;]' color='[&#34;rgb(121,93,179)&#34; ,&#34;rgb(76,180,231)&#34; ,&#34;rgb(184,90,154)&#34;]'></script>
         
 
         <!-- background effects end -->
@@ -716,21 +717,6 @@
     
         <script src="/js/ribbonDynamic.js"></script>
     
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 </body>
 
 </html>
