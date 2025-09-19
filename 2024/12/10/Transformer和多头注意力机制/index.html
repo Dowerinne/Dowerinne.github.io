@@ -123,8 +123,8 @@
                         
                             <div class="blank_box"></div>
                             <span class="meta">
-                                Words <span class="post-count">2k</span> and
-                                Reading Time <span class="post-count">7</span> Minutes
+                                Words <span class="post-count">3.1k</span> and
+                                Reading Time <span class="post-count">11</span> Minutes
                             </span>
                             <div class="blank_box"></div>
                             <!-- 不蒜子统计 start -->
@@ -199,13 +199,6 @@
 
                         
                         <li>
-                            <a href="/tags/">Tags</a>
-                        </li>
-                        
-                    
-
-                        
-                        <li>
                             <a href="/categories/">Categories</a>
                         </li>
                         
@@ -214,6 +207,13 @@
                         
                         <li>
                             <a href="/photography/">Photography</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
                         </li>
                         
                     
@@ -299,8 +299,129 @@ Z=Attention(Q,K,V)=softmax(\frac{QK^T}{\sqrt{d'}})V</script><h4 id="多头自注
 <p>（每个$Z_i$的维度是<script type="math/tex">M*d'</script>，与$X$的维度不同；<strong>而多头自注意力机制的最终输出$Z$的维度是<script type="math/tex">M*d</script>，与$X$的维度相同</strong>。）</p>
 <h4 id="三种注意力机制（Encoder一种，Decoder两种）"><a href="#三种注意力机制（Encoder一种，Decoder两种）" class="headerlink" title="三种注意力机制（Encoder一种，Decoder两种）"></a>三种注意力机制（Encoder一种，Decoder两种）</h4><p>Encoder块的数量，Decoder块的数量：N_e  N_d 是超参数，可设置</p>
 <p><img src="https://picx.zhimg.com/70/v2-7be8fe269991a236f000168291481c8b_1440w.image?source=172ae18b&amp;biz_tag=Post" alt="Transformer模型详解（图解最完整版）"></p>
-<p>Encoder一种：</p>
-<p>Decoder两种：</p>
+<p>Encoder一种：每个Encoder块里面有，缩放点积自注意力</p>
+<p>第一个Encoder块的输入：源序列<script type="math/tex">X_{M*d}</script> ，算出当前Encoder块的Q K V，输出是<script type="math/tex">Z_{M*d}</script></p>
+<p>第2~n个Encoder块的输入：上一个Encoder块的输出<script type="math/tex">Z_{M*d}</script>，算出当前Encoder块的Q K V，再输出新的<script type="math/tex">Z_{M*d}</script></p>
+<p>第n个Encoder块的输出：编码信息矩阵C，维度也是<script type="math/tex">C_{M*d}</script></p>
+<p>Decoder两种：每个Decoder块里面有，掩码自注意力机制，交叉注意力机制</p>
+<p>第一个Decoder块的输入：<strong>目标序列<script type="math/tex">X^{goal}_{M*d}</script></strong> 【不是源序列<script type="math/tex">X_{M*d}</script>】和C，输出是<script type="math/tex">Z_{M*d}</script></p>
+<p>第2~n个Decoder块的输入：上一个Decoder块的输出<script type="math/tex">Z_{M*d}</script>和C，再输出新的<script type="math/tex">Z_{M*d}</script></p>
+<p>第n个Decoder块的输出：<script type="math/tex">Z^{final}_{M*d}</script></p>
+<h5 id="后续过程："><a href="#后续过程：" class="headerlink" title="后续过程："></a>后续过程：</h5><p>将<script type="math/tex">Z^{final}_{M*d}</script>通过一个线性层（<code>Linear</code>），维度从 <code>[M, d]</code> 变为 <code>[M, vocab_size]</code>。（M个单词，每个单词有vocab_size种可能）</p>
+<p>现在，我们得到了一个矩阵，可以称为 <code>Logits</code>。它的每一行（共M行）对应目标序列中的一个位置，每一行的向量（长度为 <code>vocab_size</code>）代表了在该位置词汇表中所有单词的得分（logits）</p>
+<p>对 <code>Logits</code> 矩阵的<strong>每一行</strong>独立地进行 Softmax 操作，得到 <code>Probs</code>矩阵，维度是<code>[M, vocab_size]</code>，但现在每一行都变成了一个概率分布（该行所有元素之和为1）。</p>
+<p>对于 <code>Probs</code> 矩阵的<strong>每一行</strong>（即目标序列的每一个位置），选择概率值最大的那个元素所在的列索引。</p>
+<p>得到一个包含 M 个索引值的向量，形状为 <code>[M]</code>。每个索引值对应词汇表中的一个单词。</p>
+<p>将这 M 个索引值通过一个<strong>查找表</strong>，映射回词汇表中对应的实际单词。</p>
+<p><strong>最终输出：</strong> 得到一个由 M 个单词组成的序列，这就是模型生成的整个目标句子（例如翻译结果）。</p>
+<p><strong>上面是非自回归的过程！！Decoder在训练时是非自回归</strong>，推理时是自回归。</p>
+<p>推理时：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left"></th>
+<th style="text-align:left"><strong> Encoder（编码器侧）</strong></th>
+<th><strong>Decoder（解码器侧）</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>运行次数</strong></td>
+<td style="text-align:left"><strong>只运行1次</strong></td>
+<td><strong>运行M次</strong>（循环生成目标序列的每一个词）</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>输入</strong></td>
+<td style="text-align:left">完整的源序列 <code>[M_src, d]</code></td>
+<td>不断增长的目标序列：<code>[1, d]</code> -&gt; <code>[2, d]</code> -&gt; … -&gt; <code>[M, d]</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>输出</strong></td>
+<td style="text-align:left">编码信息 <code>C [M_src, d]</code></td>
+<td>下一个词的概率分布 <code>[vocab_size]</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>工作状态</strong></td>
+<td style="text-align:left"><strong>提前完成，结果被缓存</strong></td>
+<td><strong>循环工作，串行生成</strong></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>输入Encoder的源序列：可以理解为输入进LLM的prompt。</p>
+<p>输入Decoder的目标序列：</p>
+<ul>
+<li><strong>训练时【非自回归】：</strong> 第一个Decoder块的输入是完整的<strong>目标序列</strong> <code>X_goal [M, d]</code>（并使用掩码确保并行计算时不泄露未来信息）。</li>
+<li><strong>推理时【自回归】：</strong> 第一个Decoder块的输入是起始符 <code>[&lt;sos&gt;]</code>，形状为 <code>[1, d]</code>。<strong>每次生成一个新词，就将其拼接到当前输入序列的末尾</strong>，输入长度从 <code>[1, d]</code> -&gt; <code>[2, d]</code> -&gt; … -&gt; <code>[M, d]</code>，逐步增加，直到生成结束符。</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">训练时（非自回归）</th>
+<th style="text-align:left">推理时（自回归）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">一次处理整个序列 <code>[T, d_model]</code></td>
+<td style="text-align:left">逐步生成，每次只处理到当前序列 <code>[当前长度, d_model]</code></td>
+</tr>
+<tr>
+<td style="text-align:left">线性层输出 <code>[T, vocab_size]</code></td>
+<td style="text-align:left"><strong>每次只取最后一个向量</strong>，维度是 <code>[vocab_size]</code></td>
+</tr>
+<tr>
+<td style="text-align:left">得到T个概率分布，<strong>一次性</strong>选出T个词</td>
+<td style="text-align:left">得到<strong>1个</strong>概率分布，<strong>只选1个</strong>词，然后循环</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>所以，<strong>Decoder在每一步只生成一个词</strong>。它利用<strong>整个已生成的序列</strong>作为上下文，但只输出<strong>下一个词</strong>的概率分布。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">特性</th>
+<th style="text-align:left"><strong>训练 (Training)</strong></th>
+<th style="text-align:left"><strong>推理 (Inference)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>模式</strong></td>
+<td style="text-align:left"><strong>非自回归 (Parallel)</strong></td>
+<td style="text-align:left"><strong>自回归 (Sequential)</strong></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>输入</strong></td>
+<td style="text-align:left">完整的目标序列（右移一位）</td>
+<td style="text-align:left">模型自己之前生成的结果</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>输出</strong></td>
+<td style="text-align:left">整个序列的概率分布 <code>[T, vocab_size]</code></td>
+<td style="text-align:left">下一个词的概率分布 <code>[vocab_size]</code>维向量</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>速度</strong></td>
+<td style="text-align:left"><strong>快</strong>（并行计算）</td>
+<td style="text-align:left"><strong>慢</strong>（串行计算）</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>关键</strong></td>
+<td style="text-align:left">使用<strong>掩码</strong>和<strong>教师强制</strong></td>
+<td style="text-align:left">使用<strong>自回归</strong>循环生成</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>掩码自注意力机制 的 输入输出 和 缩放点积自注意力 是一样的</strong>，唯一区别就是在计算得到的Q*K^T上面，加了掩码，（计算softmax之前）。</p>
+<p><strong>交叉自注意力机制：</strong></p>
+<p>当前Decoder块的Q用上一个Decoder块的输出<script type="math/tex">Z_{M*d}</script>计算得到。</p>
+<p>当前Decoder块的K V用C计算得到。</p>
 <h1 id="Transformer其他细节："><a href="#Transformer其他细节：" class="headerlink" title="Transformer其他细节："></a>Transformer其他细节：</h1><p>见下面，写的易懂，要多看！</p>
 <p><a href="https://zhuanlan.zhihu.com/p/338817680" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/338817680</a></p>
 <p>补充笔记：</p>
@@ -499,7 +620,7 @@ y_{ij} = \gamma_j \hat{x}_{ij} + \beta_j</script><p>其中，$\gamma_j$是缩放
           <strong class="toc-title">Contents</strong>
           
             
-              <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#多头自注意力机制与Transformer"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">多头自注意力机制与Transformer</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#自注意力机制（计算过程见：https-zhuanlan-zhihu-com-p-338817680-3-2节与3-3节）"><span class="toc-nav-number">1.0.0.1.</span> <span class="toc-nav-text">自注意力机制（计算过程见：https:&#x2F;&#x2F;zhuanlan.zhihu.com&#x2F;p&#x2F;338817680 3.2节与3.3节）</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#多头自注意力机制"><span class="toc-nav-number">1.0.0.2.</span> <span class="toc-nav-text">多头自注意力机制</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#三种注意力机制（Encoder一种，Decoder两种）"><span class="toc-nav-number">1.0.0.3.</span> <span class="toc-nav-text">三种注意力机制（Encoder一种，Decoder两种）</span></a></li></ol></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#Transformer其他细节："><span class="toc-nav-number">2.</span> <span class="toc-nav-text">Transformer其他细节：</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-5"><a class="toc-nav-link" href="#层归一化（Layer-Normalization）和批归一化（Batch-Normalization，BN）的区别："><span class="toc-nav-number">2.0.0.0.1.</span> <span class="toc-nav-text">层归一化（Layer Normalization）和批归一化（Batch Normalization，BN）的区别：</span></a></li></ol></li></ol></li></ol></li></ol></li></ol>
+              <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#多头自注意力机制与Transformer"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">多头自注意力机制与Transformer</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#自注意力机制（计算过程见：https-zhuanlan-zhihu-com-p-338817680-3-2节与3-3节）"><span class="toc-nav-number">1.0.0.1.</span> <span class="toc-nav-text">自注意力机制（计算过程见：https:&#x2F;&#x2F;zhuanlan.zhihu.com&#x2F;p&#x2F;338817680 3.2节与3.3节）</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#多头自注意力机制"><span class="toc-nav-number">1.0.0.2.</span> <span class="toc-nav-text">多头自注意力机制</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#三种注意力机制（Encoder一种，Decoder两种）"><span class="toc-nav-number">1.0.0.3.</span> <span class="toc-nav-text">三种注意力机制（Encoder一种，Decoder两种）</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-5"><a class="toc-nav-link" href="#后续过程："><span class="toc-nav-number">1.0.0.3.1.</span> <span class="toc-nav-text">后续过程：</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#Transformer其他细节："><span class="toc-nav-number">2.</span> <span class="toc-nav-text">Transformer其他细节：</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-5"><a class="toc-nav-link" href="#层归一化（Layer-Normalization）和批归一化（Batch-Normalization，BN）的区别："><span class="toc-nav-number">2.0.0.0.1.</span> <span class="toc-nav-text">层归一化（Layer Normalization）和批归一化（Batch Normalization，BN）的区别：</span></a></li></ol></li></ol></li></ol></li></ol></li></ol>
             
           
           </div>
