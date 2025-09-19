@@ -123,7 +123,7 @@
                         
                             <div class="blank_box"></div>
                             <span class="meta">
-                                Words <span class="post-count">1.9k</span> and
+                                Words <span class="post-count">2k</span> and
                                 Reading Time <span class="post-count">7</span> Minutes
                             </span>
                             <div class="blank_box"></div>
@@ -185,14 +185,14 @@
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/categories/">Categories</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
@@ -206,7 +206,7 @@
 
                         
                         <li>
-                            <a href="/about/">About</a>
+                            <a href="/categories/">Categories</a>
                         </li>
                         
                     
@@ -297,6 +297,10 @@ Z=Attention(Q,K,V)=softmax(\frac{QK^T}{\sqrt{d'}})V</script><h4 id="多头自注
 <p>比如当 h=8 时，此时会得到 8 个输出矩阵<strong>$Z_i$</strong>。</p>
 <p>得到 8 个输出矩阵$Z_1$~$Z_8$之后，Multi-Head Attention 将它们拼接在一起 <strong>(Concat)</strong>，然后传入一个<strong>Linear</strong>层，得到 Multi-Head Attention 最终的输出<strong>Z</strong>。</p>
 <p>（每个$Z_i$的维度是<script type="math/tex">M*d'</script>，与$X$的维度不同；<strong>而多头自注意力机制的最终输出$Z$的维度是<script type="math/tex">M*d</script>，与$X$的维度相同</strong>。）</p>
+<h4 id="三种注意力机制（Encoder一种，Decoder两种）"><a href="#三种注意力机制（Encoder一种，Decoder两种）" class="headerlink" title="三种注意力机制（Encoder一种，Decoder两种）"></a>三种注意力机制（Encoder一种，Decoder两种）</h4><p>Encoder块的数量，Decoder块的数量：N_e  N_d 是超参数，可设置</p>
+<p><img src="https://picx.zhimg.com/70/v2-7be8fe269991a236f000168291481c8b_1440w.image?source=172ae18b&amp;biz_tag=Post" alt="Transformer模型详解（图解最完整版）"></p>
+<p>Encoder一种：</p>
+<p>Decoder两种：</p>
 <h1 id="Transformer其他细节："><a href="#Transformer其他细节：" class="headerlink" title="Transformer其他细节："></a>Transformer其他细节：</h1><p>见下面，写的易懂，要多看！</p>
 <p><a href="https://zhuanlan.zhihu.com/p/338817680" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/338817680</a></p>
 <p>补充笔记：</p>
@@ -495,7 +499,7 @@ y_{ij} = \gamma_j \hat{x}_{ij} + \beta_j</script><p>其中，$\gamma_j$是缩放
           <strong class="toc-title">Contents</strong>
           
             
-              <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#多头自注意力机制与Transformer"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">多头自注意力机制与Transformer</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#自注意力机制（计算过程见：https-zhuanlan-zhihu-com-p-338817680-3-2节与3-3节）"><span class="toc-nav-number">1.0.0.1.</span> <span class="toc-nav-text">自注意力机制（计算过程见：https:&#x2F;&#x2F;zhuanlan.zhihu.com&#x2F;p&#x2F;338817680 3.2节与3.3节）</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#多头自注意力机制"><span class="toc-nav-number">1.0.0.2.</span> <span class="toc-nav-text">多头自注意力机制</span></a></li></ol></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#Transformer其他细节："><span class="toc-nav-number">2.</span> <span class="toc-nav-text">Transformer其他细节：</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-5"><a class="toc-nav-link" href="#层归一化（Layer-Normalization）和批归一化（Batch-Normalization，BN）的区别："><span class="toc-nav-number">2.0.0.0.1.</span> <span class="toc-nav-text">层归一化（Layer Normalization）和批归一化（Batch Normalization，BN）的区别：</span></a></li></ol></li></ol></li></ol></li></ol></li></ol>
+              <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#多头自注意力机制与Transformer"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">多头自注意力机制与Transformer</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#自注意力机制（计算过程见：https-zhuanlan-zhihu-com-p-338817680-3-2节与3-3节）"><span class="toc-nav-number">1.0.0.1.</span> <span class="toc-nav-text">自注意力机制（计算过程见：https:&#x2F;&#x2F;zhuanlan.zhihu.com&#x2F;p&#x2F;338817680 3.2节与3.3节）</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#多头自注意力机制"><span class="toc-nav-number">1.0.0.2.</span> <span class="toc-nav-text">多头自注意力机制</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#三种注意力机制（Encoder一种，Decoder两种）"><span class="toc-nav-number">1.0.0.3.</span> <span class="toc-nav-text">三种注意力机制（Encoder一种，Decoder两种）</span></a></li></ol></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#Transformer其他细节："><span class="toc-nav-number">2.</span> <span class="toc-nav-text">Transformer其他细节：</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-5"><a class="toc-nav-link" href="#层归一化（Layer-Normalization）和批归一化（Batch-Normalization，BN）的区别："><span class="toc-nav-number">2.0.0.0.1.</span> <span class="toc-nav-text">层归一化（Layer Normalization）和批归一化（Batch Normalization，BN）的区别：</span></a></li></ol></li></ol></li></ol></li></ol></li></ol>
             
           
           </div>
