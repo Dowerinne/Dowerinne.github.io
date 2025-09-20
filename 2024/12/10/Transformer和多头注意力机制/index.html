@@ -199,13 +199,6 @@
 
                         
                         <li>
-                            <a href="/tags/">Tags</a>
-                        </li>
-                        
-                    
-
-                        
-                        <li>
                             <a href="/categories/">Categories</a>
                         </li>
                         
@@ -214,6 +207,13 @@
                         
                         <li>
                             <a href="/photography/">Photography</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
                         </li>
                         
                     
@@ -471,7 +471,7 @@ Z=Attention(Q,K,V)=softmax(\frac{QK^T}{\sqrt{d'}})V</script><h4 id="多头自注
 <p>最终，该多头注意力的输出是<script type="math/tex">MultiHeadOutput_{M*d}</script>，维度和输入<script type="math/tex">X_{M*d}</script>是一样的。</p>
 <p>（<script type="math/tex">MultiHeadOutput_{M*d}</script>就是我上文【三种注意力机制（Encoder一种，Decoder两种）】中的<script type="math/tex">Z_{M*d}</script>）</p>
 <h5 id="注意力后的Feed-Forward层："><a href="#注意力后的Feed-Forward层：" class="headerlink" title="注意力后的Feed Forward层："></a>注意力后的Feed Forward层：</h5><p>FFN对注意力层的输出 <code>Z</code>（维度 <code>(M, d)</code>）进行两步操作。</p>
-<p>输出是<script type="math/tex">FFN(Z) = max(0, Z W_1 + b_1) W_2 + b_2</script></p>
+<p>输出是<script type="math/tex">FFN(Z) = max(0, Z W_1 + b_1) W_2 + b_2</script>。</p>
 <script type="math/tex; mode=display">FFN(Z)$$的维度仍然是 `(M, d)`
 
 - `W_1` 是一个 `(d, d_ff)` 的矩阵，`b_1` 是维度 `d_ff` 的向量。
