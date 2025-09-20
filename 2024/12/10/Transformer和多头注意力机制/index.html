@@ -123,8 +123,8 @@
                         
                             <div class="blank_box"></div>
                             <span class="meta">
-                                Words <span class="post-count">3.1k</span> and
-                                Reading Time <span class="post-count">11</span> Minutes
+                                Words <span class="post-count">4.2k</span> and
+                                Reading Time <span class="post-count">16</span> Minutes
                             </span>
                             <div class="blank_box"></div>
                             <!-- 不蒜子统计 start -->
@@ -185,6 +185,13 @@
 
                         
                         <li>
+                            <a href="/archive/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
                             <a href="/about/">About</a>
                         </li>
                         
@@ -192,7 +199,7 @@
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
+                            <a href="/tags/">Tags</a>
                         </li>
                         
                     
@@ -207,13 +214,6 @@
                         
                         <li>
                             <a href="/photography/">Photography</a>
-                        </li>
-                        
-                    
-
-                        
-                        <li>
-                            <a href="/tags/">Tags</a>
                         </li>
                         
                     
@@ -422,71 +422,183 @@ Z=Attention(Q,K,V)=softmax(\frac{QK^T}{\sqrt{d'}})V</script><h4 id="多头自注
 <p><strong>交叉自注意力机制：</strong></p>
 <p>当前Decoder块的Q用上一个Decoder块的输出<script type="math/tex">Z_{M*d}</script>计算得到。</p>
 <p>当前Decoder块的K V用C计算得到。</p>
-<h1 id="Transformer其他细节："><a href="#Transformer其他细节：" class="headerlink" title="Transformer其他细节："></a>Transformer其他细节：</h1><p>见下面，写的易懂，要多看！</p>
-<p><a href="https://zhuanlan.zhihu.com/p/338817680" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/338817680</a></p>
-<p>补充笔记：</p>
-<p>Transformer 本身是不能利用单词的顺序信息的，因此需要在输入中添加位置 Embedding！</p>
-<p>$PE_{pos,2i}，PE_{pos,2i+1}$，这里的$2i,2i+1$是维度索引，即分量，是在计算奇数编号和偶数编号的<strong>分量</strong>的值。</p>
-<h5 id="层归一化（Layer-Normalization）和批归一化（Batch-Normalization，BN）的区别："><a href="#层归一化（Layer-Normalization）和批归一化（Batch-Normalization，BN）的区别：" class="headerlink" title="层归一化（Layer Normalization）和批归一化（Batch Normalization，BN）的区别："></a>层归一化（Layer Normalization）和批归一化（Batch Normalization，BN）的区别：</h5><p>假设输入矩阵为$X_{n*d}$，</p>
-<p>n 是批量大小（batch size），代表有n个单词/物品，<strong>一行对应一个</strong>；</p>
-<p>d 是每个单词/物品的特征数量。</p>
-<p>Layer Normalization 的步骤如下：</p>
-<ol>
-<li><p><strong>计算均值</strong>： <strong>对每个样本（行）</strong>计算特征的均值。对于第$i$个样本$\mathbf{x}_i = (x_{i1}, x_{i2}, …, x_{id})$，均值是：</p>
-<script type="math/tex; mode=display">
-\mu_i = \frac{1}{d} \sum_{j=1}^{d} x_{ij}</script></li>
-<li><p><strong>计算方差</strong>： 对每个样本计算特征的方差：</p>
-<script type="math/tex; mode=display">
-\sigma_i^2 = \frac{1}{d} \sum_{j=1}^{d} (x_{ij} - \mu_i)^2</script></li>
-<li><p><strong>归一化</strong>： 使用均值和方差对每个特征进行归一化：</p>
-<script type="math/tex; mode=display">
-\hat{x}_{ij} = \frac{x_{ij} - \mu_i}{\sqrt{\sigma_i^2 + \epsilon}}</script><p>其中 $\epsilon$ 是一个非常小的常数，用于防止除零错误。</p>
-</li>
-<li><p><strong>缩放和平移</strong>： 在归一化后，Layer Normalization 会引入两个可学习的参数 $\gamma$ 和 $\beta$，分别用于缩放和平移。最终输出是：</p>
-<script type="math/tex; mode=display">
-y_{ij} = \gamma_j \hat{x}_{ij} + \beta_j</script><p>其中 $\gamma_j$ 和 $\beta_j$是为每个特征（每个列）学习到的参数。</p>
-</li>
-</ol>
-<p>总结：</p>
-<p>Layer Normalization 对每个样本的特征进行归一化。</p>
-<p>它不像 Batch Normalization 依赖于批量数$n$，而是<strong>对每个样本单独归一化</strong>，适用于处理序列数据（如RNN、Transformer等），尤其在批量大小较小或单个样本处理时。</p>
-<p>批归一化的步骤：</p>
-<ol>
-<li><p><strong>计算批次均值</strong>： 对整个批次的<strong>每个特征维度（列）</strong>计算均值，即计算<strong>每一列（特征）在批次中所有样本的均值</strong>。对于第$j$个特征维度，它的批次均值是：</p>
-<script type="math/tex; mode=display">
-\mu_j = \frac{1}{n} \sum_{i=1}^{n} x_{ij}</script><p>其中，$x_{ij}$是第 $i$个样本在第$j$个特征维度上的值。</p>
-</li>
-<li><p><strong>计算批次方差</strong>： 对整个批次的每个特征维度（列）计算方差，即计算每一列（特征）在批次中所有样本的方差。对于第$j$个特征维度，它的批次方差是：</p>
-<script type="math/tex; mode=display">
-\sigma_j^2 = \frac{1}{n} \sum_{i=1}^{n} (x_{ij} - \mu_j)^2</script><p>这里的$\sigma_j^2$是第$j$个特征维度在批次中的方差。</p>
-</li>
-<li><p><strong>归一化</strong>： 使用计算得到的均值$\mu_j$和方差 $\sigma_j^2$对每个样本的每个特征进行归一化处理。对于第$i$个样本在第$j$个特征维度上的归一化值：</p>
-<script type="math/tex; mode=display">
-\hat{x}_{ij} = \frac{x_{ij} - \mu_j}{\sqrt{\sigma_j^2 + \epsilon}}</script><p>这里$\epsilon$ 是一个很小的常数，用来防止方差为零时出现除零错误。</p>
-</li>
-<li><p><strong>缩放和平移（可选）</strong>： 批归一化通常会引入两个可学习的参数：$\gamma_j$和$\beta_j$，分别用于缩放和偏移归一化后的值。这样做的目的是让网络有更大的表达能力，因为在训练过程中，经过归一化的输出可以通过这些参数重新调整回原始尺度。</p>
-<script type="math/tex; mode=display">
-y_{ij} = \gamma_j \hat{x}_{ij} + \beta_j</script><p>其中，$\gamma_j$是缩放因子，$\beta_j$是偏移因子，通常会初始化为1和0。</p>
-</li>
-</ol>
-<p>批归一化通常在卷积神经网络（CNN）和全连接层网络（FCN）中使用。</p>
-<p><strong>层归一化</strong>：是在每个样本的特征维度上进行归一化，每个样本独立归一化。<strong>每行进行归一化、</strong></p>
-<p><strong>批归一化</strong>：是在整个批次上对每个特征维度进行归一化，考虑了批次中的所有样本。<strong>每列进行归一化。</strong></p>
-<p>每个Decoder Block：</p>
+<h4 id="什么是多头，以及其他网络结构细节"><a href="#什么是多头，以及其他网络结构细节" class="headerlink" title="什么是多头，以及其他网络结构细节"></a>什么是多头，以及其他网络结构细节</h4><p><img src="https://pic2.zhimg.com/v2-f6380627207ff4d1e72addfafeaff0bb_r.jpg" alt="img"></p>
+<h4 id="多头注意力的意思："><a href="#多头注意力的意思：" class="headerlink" title="多头注意力的意思："></a>多头注意力的意思：</h4><p>一个head=一个（Q,K,V） </p>
+<p><strong>多头=多个并行的（Q,K,V）</strong></p>
+<h5 id="单头的情况："><a href="#单头的情况：" class="headerlink" title="单头的情况："></a>单头的情况：</h5><p>有<script type="math/tex">M</script>个特征（或者单词）   （又叫seq_len: 句子长度,即单词数量）</p>
+<p>每个单词用一个$d$维向量表示，记作矩阵<script type="math/tex">X_{M*d}</script>，矩阵有$M$行，<strong>每行对应一个特征/单词</strong>，每行是$d$维。</p>
+<p>Self-Attention 的输入是矩阵$X$，则可以使用线性变换矩阵$W_Q,W_K,W_V$计算得到$Q,K,V$矩阵。</p>
+<p>$W_Q,W_K,W_V$的维度是<script type="math/tex">d*d</script>，得到的$Q,K,V$矩阵的维度是<script type="math/tex">M*d</script>。 <strong>$X, Q, K, V$的每一行都对应一个单词。</strong></p>
+<p>矩阵乘法：</p>
+<script type="math/tex; mode=display">Q=X×W_Q</script><p>$K=X×W_K$</p>
+<p>$V=X×W_V$</p>
+<p>然后计算$Score(Q,K^T)$，即矩阵相乘$QK^T$，维度是$M*M$，元素$a_{ij}$代表第$i$个单词和第$j$个单词之间的关联程度（attention强度/权重/attention系数/相似性）。</p>
+<p>（为了防止$a_{ij}$过大，所有的$a_{ij}$都要除以$\sqrt{d}$）</p>
+<p>再对$QK^T$的每一行做$softmax$，使得每行各元素之和都为1.</p>
+<p>得到新的维度为$M*M$的矩阵$softmax(QK^T)$。</p>
+<p>再和矩阵$V$进行元素相乘，得到最终的输出矩阵$Z$，$Z=softmax(QK^T) × V$       </p>
+<p>$Z$的维度是$M*d$</p>
+<h5 id="多头的情况：【变化：单个注意力机制-→-多头注意力机制】"><a href="#多头的情况：【变化：单个注意力机制-→-多头注意力机制】" class="headerlink" title="多头的情况：【变化：单个注意力机制 → 多头注意力机制】"></a>多头的情况：【变化：单个注意力机制 → 多头注意力机制】</h5><p>将原始的 <code>d</code> 维特征空间分割成 <code>h</code> 个头，这 <code>h</code> 个头可以完全并行地计算自注意力。</p>
+<p>注意：<strong>不是直接对输入矩阵 X 进行划分！！并不是划分输入 <code>X</code>（比如把 <code>(M, d)</code> 的矩阵切成 <code>h</code> 个 <code>(M, d/h)</code> 的矩阵）</strong>。</p>
+<p><strong>而是把完整的X ∈R^[M,d] 都输入到并行的h个头中。</strong></p>
+<p>比如有h个头，是并行的，即h组（Q,K,V）：</p>
+<p>对于每一个头 <code>i</code> (i from 1 to h)，我们都有其对应的查询（Q）、键（K）、值（V）的线性变换投影矩阵：</p>
 <ul>
-<li>包含两个 Multi-Head Attention 层。</li>
-<li>第一个 Multi-Head Attention 层采用了 Masked 操作：<ul>
-<li>在计算得到$QK^T$，对$QK^T$的每一行做$softmax$之前，</li>
-<li>先使用<strong>Mask</strong>矩阵，将$QK^T$变成<strong>Mask</strong> $QK^T$，</li>
-<li>再对<strong>Mask</strong> $QK^T$的每一行做$softmax$。</li>
+<li><script type="math/tex; mode=display">W_Q^i ∈ ℝ^(d × d_Q)</script></li>
+<li><script type="math/tex; mode=display">W_K^i ∈ ℝ^(d × d_K)</script></li>
+<li><script type="math/tex; mode=display">W_V^i ∈ ℝ^(d × d_V)</script></li>
 </ul>
-</li>
-<li>第二个 Multi-Head Attention 层的<strong>K, V</strong>矩阵使用 Encoder 的<strong>编码信息矩阵C</strong>进行计算得出，而<strong>Q</strong>使用上一个 Decoder block 的输出计算得出。</li>
+<p>对于每个头，我们独立地进行线性投影：</p>
+<ul>
+<li><script type="math/tex; mode=display">Q^i = X · W_Q^i → 维度: (M, d_Q)</script></li>
+<li><script type="math/tex; mode=display">K^i = X · W_K^i → 维度: (M, d_K)</script></li>
+<li><script type="math/tex; mode=display">V^i = X · W_V^i → 维度: (M, d_V)</script></li>
 </ul>
-<p>Encoder和Decoder的输入输出：</p>
-<p>Encoder的输入：源文本的单词表示矩阵$X_{n,d}$，  如“我 有 一只 猫”，共4个单词</p>
-<p>Encoder的输出：信息编码矩阵$C_{n,d}$，<strong>与$X$的维度一致</strong>，<script type="math/tex">（n=seq\_len,d=emd\_size）</script></p>
-<p>Decoder的输入：目标文本的单词表示矩阵$X_{n,d}$，如”&lt;Begin&gt; I have a cat”，共5个单词</p>
+<p><strong>注意：有<script type="math/tex">d_Q=d_K=d_V=d/h</script></strong></p>
+<p>比如d=512，有h=8个头，则每个头内部的<script type="math/tex">d_Q=d_K=d_V=512/8=64</script></p>
+<p>之后一步步计算，每个头的输出$Z^i$的维度是<script type="math/tex">M*d_V</script></p>
+<p>h个头，得到h个维度为<script type="math/tex">M*d_V</script>的<script type="math/tex">Z^i</script>，接下来：</p>
+<p>①将这 <code>h</code> 个头的输出 <strong>拼接</strong> 起来。（<script type="math/tex">d_V*h=d</script>）</p>
+<p>h个<script type="math/tex">Z^i</script>拼接，得到最终的Z，维度为<script type="math/tex">M*d</script></p>
+<p>②线性投影：</p>
+<p>将拼接后的结果 <code>Z</code> 通过一个<strong>可学习的线性变换</strong> <code>W^O</code></p>
+<ul>
+<li><strong>操作</strong>： <code>Output = Z · W^O</code></li>
+<li><strong>参数矩阵 <code>W^O</code> 的维度</strong>： <code>(h * d_v, d)</code> 也就是 <code>(d, d)</code>（因为 <code>h * d_v = d</code>）。</li>
+<li><strong>输出维度</strong>： <code>(M, d) · (d, d) = (M, d)</code></li>
+</ul>
+<p><strong>这一步的目的是让模型自由地学习和融合来自所有头的信息。</strong></p>
+<p>最终，该多头注意力的输出是<script type="math/tex">MultiHeadOutput_{M*d}</script>，维度和输入<script type="math/tex">X_{M*d}</script>是一样的。</p>
+<p>（<script type="math/tex">MultiHeadOutput_{M*d}</script>就是我上文【三种注意力机制（Encoder一种，Decoder两种）】中的<script type="math/tex">Z_{M*d}</script>）</p>
+<h5 id="注意力后的Feed-Forward层："><a href="#注意力后的Feed-Forward层：" class="headerlink" title="注意力后的Feed Forward层："></a>注意力后的Feed Forward层：</h5><p>FFN对注意力层的输出 <code>Z</code>（维度 <code>(M, d)</code>）进行两步操作。</p>
+<p>输出是<script type="math/tex">FFN(Z) = max(0, Z W_1 + b_1) W_2 + b_2</script></p>
+<script type="math/tex; mode=display">FFN(Z)$$的维度仍然是 `(M, d)`
+
+
+
+- `W_1` 是一个 `(d, d_ff)` 的矩阵，`b_1` 是维度 `d_ff` 的向量。
+- `W_2` 是一个 `(d_ff, d)` 的矩阵，`b_2` 是维度 `d` 的向量。
+
+**d_ff > d，即先升维再降维。**
+
+*ReLU激活函数 (`max(0, x)`) 提供了至关重要的非线性变换能力。*
+
+**FFN就是一个“升维 → 非线性激活 → 降维”的处理过程。**
+
+
+
+##### 注意力后面的Add & Norm 和Feed Forward后面的Add & Norm：
+
+Add & Norm 层由 Add 和 Norm 两部分组成，其计算公式如下：
+
+![img](https://pic1.zhimg.com/v2-a4b35db50f882522ee52f61ddd411a5a_1440w.jpg)
+
+其中 **X**表示 Multi-Head Attention 或者 Feed Forward 的输入，MultiHeadAttention(**X**) 和 FeedForward(**X**) 表示输出 (输出与输入 **X** 维度是一样的，所以可以相加)。
+
+**Add**指 **X**+MultiHeadAttention(**X**)，是一种残差连接，通常用于解决多层网络训练的问题，可以让网络只关注当前差异的部分，在 ResNet 中经常用到。
+
+**Norm**指 Layer Normalization，通常用于 RNN 结构。
+
+
+
+
+
+
+
+# Transformer其他细节：
+
+见下面，写的易懂，要多看！
+
+https://zhuanlan.zhihu.com/p/338817680
+
+补充笔记：
+
+Transformer 本身是不能利用单词的顺序信息的，因此需要在输入中添加位置 Embedding！
+
+$PE_{pos,2i}，PE_{pos,2i+1}$，这里的$2i,2i+1$是维度索引，即分量，是在计算奇数编号和偶数编号的**分量**的值。
+
+
+
+##### 层归一化（Layer Normalization）和批归一化（Batch Normalization，BN）的区别：
+
+假设输入矩阵为$X_{n*d}$，
+
+n 是批量大小（batch size），代表有n个单词/物品，**一行对应一个**；
+
+d 是每个单词/物品的特征数量。
+
+Layer Normalization 的步骤如下：
+
+1. **计算均值**： **对每个样本（行）**计算特征的均值。对于第$i$个样本$\mathbf{x}_i = (x_{i1}, x_{i2}, ..., x_{id})$，均值是：</script><p>   \mu_i = \frac{1}{d} \sum_{j=1}^{d} x_{ij}</p>
+<script type="math/tex; mode=display">
+
+2. **计算方差**： 对每个样本计算特征的方差：</script><p>   \sigma_i^2 = \frac{1}{d} \sum_{j=1}^{d} (x_{ij} - \mu_i)^2</p>
+<script type="math/tex; mode=display">
+
+3. **归一化**： 使用均值和方差对每个特征进行归一化：</script><p>   \hat{x}_{ij} = \frac{x_{ij} - \mu_i}{\sqrt{\sigma_i^2 + \epsilon}}</p>
+<script type="math/tex; mode=display">
+   其中 $\epsilon$ 是一个非常小的常数，用于防止除零错误。
+
+4. **缩放和平移**： 在归一化后，Layer Normalization 会引入两个可学习的参数 $\gamma$ 和 $\beta$，分别用于缩放和平移。最终输出是：</script><p>   y_{ij} = \gamma_j \hat{x}_{ij} + \beta_j</p>
+<script type="math/tex; mode=display">
+   其中 $\gamma_j$ 和 $\beta_j$是为每个特征（每个列）学习到的参数。
+
+总结：
+
+Layer Normalization 对每个样本的特征进行归一化。
+
+它不像 Batch Normalization 依赖于批量数$n$，而是**对每个样本单独归一化**，适用于处理序列数据（如RNN、Transformer等），尤其在批量大小较小或单个样本处理时。
+
+
+
+批归一化的步骤：
+
+1. **计算批次均值**： 对整个批次的**每个特征维度（列）**计算均值，即计算**每一列（特征）在批次中所有样本的均值**。对于第$j$个特征维度，它的批次均值是：</script><p>   \mu_j = \frac{1}{n} \sum_{i=1}^{n} x_{ij}</p>
+<script type="math/tex; mode=display">
+   其中，$x_{ij}$是第 $i$个样本在第$j$个特征维度上的值。
+
+2. **计算批次方差**： 对整个批次的每个特征维度（列）计算方差，即计算每一列（特征）在批次中所有样本的方差。对于第$j$个特征维度，它的批次方差是：</script><p>   \sigma_j^2 = \frac{1}{n} \sum_{i=1}^{n} (x_{ij} - \mu_j)^2</p>
+<script type="math/tex; mode=display">
+   这里的$\sigma_j^2$是第$j$个特征维度在批次中的方差。
+
+3. **归一化**： 使用计算得到的均值$\mu_j$和方差 $\sigma_j^2$对每个样本的每个特征进行归一化处理。对于第$i$个样本在第$j$个特征维度上的归一化值：</script><p>   \hat{x}_{ij} = \frac{x_{ij} - \mu_j}{\sqrt{\sigma_j^2 + \epsilon}}</p>
+<script type="math/tex; mode=display">
+   这里$\epsilon$ 是一个很小的常数，用来防止方差为零时出现除零错误。
+
+4. **缩放和平移（可选）**： 批归一化通常会引入两个可学习的参数：$\gamma_j$和$\beta_j$，分别用于缩放和偏移归一化后的值。这样做的目的是让网络有更大的表达能力，因为在训练过程中，经过归一化的输出可以通过这些参数重新调整回原始尺度。</script><p>   y_{ij} = \gamma_j \hat{x}_{ij} + \beta_j</p>
+<script type="math/tex; mode=display">
+   其中，$\gamma_j$是缩放因子，$\beta_j$是偏移因子，通常会初始化为1和0。
+
+批归一化通常在卷积神经网络（CNN）和全连接层网络（FCN）中使用。
+
+
+
+**层归一化**：是在每个样本的特征维度上进行归一化，每个样本独立归一化。**每行进行归一化、**
+
+**批归一化**：是在整个批次上对每个特征维度进行归一化，考虑了批次中的所有样本。**每列进行归一化。**
+
+
+
+
+
+每个Decoder Block：
+
+- 包含两个 Multi-Head Attention 层。
+- 第一个 Multi-Head Attention 层采用了 Masked 操作：
+  - 在计算得到$QK^T$，对$QK^T$的每一行做$softmax$之前，
+  - 先使用**Mask**矩阵，将$QK^T$变成**Mask** $QK^T$，
+  - 再对**Mask** $QK^T$的每一行做$softmax$。
+- 第二个 Multi-Head Attention 层的**K, V**矩阵使用 Encoder 的**编码信息矩阵C**进行计算得出，而**Q**使用上一个 Decoder block 的输出计算得出。
+
+
+
+Encoder和Decoder的输入输出：
+
+
+
+Encoder的输入：源文本的单词表示矩阵$X_{n,d}$，  如“我 有 一只 猫”，共4个单词
+
+Encoder的输出：信息编码矩阵$C_{n,d}$，**与$X$的维度一致**，$$（n=seq\_len,d=emd\_size）</script><p>Decoder的输入：目标文本的单词表示矩阵$X_{n,d}$，如”&lt;Begin&gt; I have a cat”，共5个单词</p>
 <p>（Encoder的输出矩阵$C$会输入到Decoder的第二个$Multi-Head \ Attention$中）</p>
 <p>Decoder的输出：预测的单词序列，如“I have a cat &lt;end&gt;”。</p>
 
@@ -620,7 +732,7 @@ y_{ij} = \gamma_j \hat{x}_{ij} + \beta_j</script><p>其中，$\gamma_j$是缩放
           <strong class="toc-title">Contents</strong>
           
             
-              <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#多头自注意力机制与Transformer"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">多头自注意力机制与Transformer</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#自注意力机制（计算过程见：https-zhuanlan-zhihu-com-p-338817680-3-2节与3-3节）"><span class="toc-nav-number">1.0.0.1.</span> <span class="toc-nav-text">自注意力机制（计算过程见：https:&#x2F;&#x2F;zhuanlan.zhihu.com&#x2F;p&#x2F;338817680 3.2节与3.3节）</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#多头自注意力机制"><span class="toc-nav-number">1.0.0.2.</span> <span class="toc-nav-text">多头自注意力机制</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#三种注意力机制（Encoder一种，Decoder两种）"><span class="toc-nav-number">1.0.0.3.</span> <span class="toc-nav-text">三种注意力机制（Encoder一种，Decoder两种）</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-5"><a class="toc-nav-link" href="#后续过程："><span class="toc-nav-number">1.0.0.3.1.</span> <span class="toc-nav-text">后续过程：</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#Transformer其他细节："><span class="toc-nav-number">2.</span> <span class="toc-nav-text">Transformer其他细节：</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-5"><a class="toc-nav-link" href="#层归一化（Layer-Normalization）和批归一化（Batch-Normalization，BN）的区别："><span class="toc-nav-number">2.0.0.0.1.</span> <span class="toc-nav-text">层归一化（Layer Normalization）和批归一化（Batch Normalization，BN）的区别：</span></a></li></ol></li></ol></li></ol></li></ol></li></ol>
+              <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#多头自注意力机制与Transformer"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">多头自注意力机制与Transformer</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#自注意力机制（计算过程见：https-zhuanlan-zhihu-com-p-338817680-3-2节与3-3节）"><span class="toc-nav-number">1.0.0.1.</span> <span class="toc-nav-text">自注意力机制（计算过程见：https:&#x2F;&#x2F;zhuanlan.zhihu.com&#x2F;p&#x2F;338817680 3.2节与3.3节）</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#多头自注意力机制"><span class="toc-nav-number">1.0.0.2.</span> <span class="toc-nav-text">多头自注意力机制</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#三种注意力机制（Encoder一种，Decoder两种）"><span class="toc-nav-number">1.0.0.3.</span> <span class="toc-nav-text">三种注意力机制（Encoder一种，Decoder两种）</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-5"><a class="toc-nav-link" href="#后续过程："><span class="toc-nav-number">1.0.0.3.1.</span> <span class="toc-nav-text">后续过程：</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#什么是多头，以及其他网络结构细节"><span class="toc-nav-number">1.0.0.4.</span> <span class="toc-nav-text">什么是多头，以及其他网络结构细节</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#多头注意力的意思："><span class="toc-nav-number">1.0.0.5.</span> <span class="toc-nav-text">多头注意力的意思：</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-5"><a class="toc-nav-link" href="#单头的情况："><span class="toc-nav-number">1.0.0.5.1.</span> <span class="toc-nav-text">单头的情况：</span></a></li><li class="toc-nav-item toc-nav-level-5"><a class="toc-nav-link" href="#多头的情况：【变化：单个注意力机制-→-多头注意力机制】"><span class="toc-nav-number">1.0.0.5.2.</span> <span class="toc-nav-text">多头的情况：【变化：单个注意力机制 → 多头注意力机制】</span></a></li><li class="toc-nav-item toc-nav-level-5"><a class="toc-nav-link" href="#注意力后的Feed-Forward层："><span class="toc-nav-number">1.0.0.5.3.</span> <span class="toc-nav-text">注意力后的Feed Forward层：</span></a></li></ol></li></ol></li></ol></li></ol></li></ol>
             
           
           </div>
