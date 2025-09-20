@@ -185,7 +185,7 @@
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
+                            <a href="/categories/">Categories</a>
                         </li>
                         
                     
@@ -199,14 +199,7 @@
 
                         
                         <li>
-                            <a href="/tags/">Tags</a>
-                        </li>
-                        
-                    
-
-                        
-                        <li>
-                            <a href="/categories/">Categories</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
@@ -214,6 +207,13 @@
                         
                         <li>
                             <a href="/photography/">Photography</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
                         </li>
                         
                     
@@ -474,8 +474,6 @@ Z=Attention(Q,K,V)=softmax(\frac{QK^T}{\sqrt{d'}})V</script><h4 id="多头自注
 <p>输出是<script type="math/tex">FFN(Z) = max(0, Z W_1 + b_1) W_2 + b_2</script></p>
 <script type="math/tex; mode=display">FFN(Z)$$的维度仍然是 `(M, d)`
 
-
-
 - `W_1` 是一个 `(d, d_ff)` 的矩阵，`b_1` 是维度 `d_ff` 的向量。
 - `W_2` 是一个 `(d_ff, d)` 的矩阵，`b_2` 是维度 `d` 的向量。
 
@@ -493,7 +491,7 @@ Add & Norm 层由 Add 和 Norm 两部分组成，其计算公式如下：
 
 ![img](https://pic1.zhimg.com/v2-a4b35db50f882522ee52f61ddd411a5a_1440w.jpg)
 
-其中 **X**表示 Multi-Head Attention 或者 Feed Forward 的输入，MultiHeadAttention(**X**) 和 FeedForward(**X**) 表示输出 (输出与输入 **X** 维度是一样的，所以可以相加)。
+其中 **X**表示 Multi-Head Attention 或者 Feed Forward 的输入，MultiHeadAttention(**X**) 和 FeedForward(**X**) **表示注意力机制，和FFN的输出 (输出与输入 X 维度是一样的，都是M*d，所以可以相加)。**
 
 **Add**指 **X**+MultiHeadAttention(**X**)，是一种残差连接，通常用于解决多层网络训练的问题，可以让网络只关注当前差异的部分，在 ResNet 中经常用到。
 
