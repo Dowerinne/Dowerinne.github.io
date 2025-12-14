@@ -22,13 +22,6 @@
     </url>
     
     <url>
-        <loc>https://dowerinne.github.io/categories/</loc>
-        <lastmod>2024-12-09T05:37:18.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    
-    <url>
         <loc>https://dowerinne.github.io/archive/</loc>
         <lastmod>2024-12-09T05:37:18.000Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -36,7 +29,7 @@
     </url>
     
     <url>
-        <loc>https://dowerinne.github.io/tags/</loc>
+        <loc>https://dowerinne.github.io/categories/</loc>
         <lastmod>2024-12-09T05:37:18.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
@@ -44,6 +37,13 @@
     
     <url>
         <loc>https://dowerinne.github.io/photography/</loc>
+        <lastmod>2024-12-09T05:37:18.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <url>
+        <loc>https://dowerinne.github.io/tags/</loc>
         <lastmod>2024-12-09T05:37:18.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
