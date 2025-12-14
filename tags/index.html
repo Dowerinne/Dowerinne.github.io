@@ -164,13 +164,6 @@
 
                         
                         <li>
-                            <a href="/about/">About</a>
-                        </li>
-                        
-                    
-
-                        
-                        <li>
                             <a href="/categories/">Categories</a>
                         </li>
                         
@@ -185,7 +178,7 @@
 
                         
                         <li>
-                            <a href="/photography/">Photography</a>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
@@ -193,6 +186,13 @@
                         
                         <li>
                             <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/photography/">Photography</a>
                         </li>
                         
                     
@@ -243,7 +243,9 @@
             <!-- 标签云 -->
             <div id='tag_clouds' class="tags">
                 
-                    <a href="#acceed,新加坡" title="acceed,新加坡" rel="1">acceed,新加坡</a>
+                    <a href="#acceed" title="acceed" rel="1">acceed</a>
+                
+                    <a href="#新加坡" title="新加坡" rel="1">新加坡</a>
                 
             </div>
 
@@ -251,8 +253,30 @@
 
             
             <div class="one-tag-list">
-                <span class="fa fa-tag listing-seperator" id="acceed,新加坡">
-                    <span class="tag-text">acceed,新加坡</span>
+                <span class="fa fa-tag listing-seperator" id="acceed">
+                    <span class="tag-text">acceed</span>
+                </span>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/2024/12/09/hello-blog/">
+                        <h2 class="post-title">
+                            hello-blog
+                        </h2>
+                        
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="新加坡">
+                    <span class="tag-text">新加坡</span>
                 </span>
                 
                   <!-- <li class="listing-item">
@@ -428,7 +452,7 @@
         
 
         
-            <script type="text/javascript" src="/js/mouse-click.js" content='[&quot;🎄&quot;,&quot;🎇&quot;,&quot;🎉&quot;]' color='[&quot;rgb(121,93,179)&quot; ,&quot;rgb(76,180,231)&quot; ,&quot;rgb(184,90,154)&quot;]'></script>
+            <script type="text/javascript" src="/js/mouse-click.js" content='[&#34;🎄&#34;,&#34;🎇&#34;,&#34;🎉&#34;]' color='[&#34;rgb(121,93,179)&#34; ,&#34;rgb(76,180,231)&#34; ,&#34;rgb(184,90,154)&#34;]'></script>
         
 
         <!-- background effects end -->
@@ -438,21 +462,6 @@
     
         <script src="/js/ribbonDynamic.js"></script>
     
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 </body>
 
 </html>
