@@ -15,7 +15,7 @@
     </url>
     
     <url>
-        <loc>https://dowerinne.github.io/about/</loc>
+        <loc>https://dowerinne.github.io/archive/</loc>
         <lastmod>2024-12-09T05:37:18.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
@@ -29,14 +29,14 @@
     </url>
     
     <url>
-        <loc>https://dowerinne.github.io/photography/</loc>
+        <loc>https://dowerinne.github.io/about/</loc>
         <lastmod>2024-12-09T05:37:18.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     
     <url>
-        <loc>https://dowerinne.github.io/archive/</loc>
+        <loc>https://dowerinne.github.io/photography/</loc>
         <lastmod>2024-12-09T05:37:18.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
