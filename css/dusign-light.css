@@ -58,7 +58,7 @@ body {
   font-size: 16px;
   color: #404040;
   overflow-x: hidden;
-  background-color: #f0f0f0; /* ← 添加这一行 */
+  background-color: #ede9e1 ; /* ← 添加这一行 */
 }
 p {
   margin: 30px 0;
