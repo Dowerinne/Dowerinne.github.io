@@ -125,7 +125,7 @@
                         
                             <div class="blank_box"></div>
                             <span class="meta">
-                                Words <span class="post-count">1.2k</span> and
+                                Words <span class="post-count">1.3k</span> and
                                 Reading Time <span class="post-count">5</span> Minutes
                             </span>
                             <div class="blank_box"></div>
@@ -182,6 +182,13 @@
 
                         
                         <li>
+                            <a href="/archive/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
                             <a href="/photography/">Photography</a>
                         </li>
                         
@@ -190,13 +197,6 @@
                         
                         <li>
                             <a href="/about/">About</a>
-                        </li>
-                        
-                    
-
-                        
-                        <li>
-                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
@@ -306,11 +306,19 @@
 <p>删去该行：默认白色</p>
 <p>其他护眼颜色：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#ede9e1 Zotero中的米色</span><br><span class="line">极浅灰：#f5f5f5 &#x2F; #fafafa</span><br><span class="line">豆沙绿（经典护眼色）：#cce8cf &#x2F; #d1e8d9</span><br><span class="line">更浅的薄荷绿：#e8f5e9 &#x2F; #f0f9f1</span><br><span class="line">灰绿调：#e0ebe0</span><br><span class="line">淡天蓝：#e8f4f8 &#x2F; #ecf5ff</span><br><span class="line">灰蓝：#e3e8f0</span><br><span class="line">经典“眼睛舒适蓝”：#e6f0ff（非常淡）</span><br></pre></td></tr></table></figure>
+<h4 id="7-评论区设置："><a href="#7-评论区设置：" class="headerlink" title="7.评论区设置："></a>7.评论区设置：</h4><p>参考：</p>
+<p><a href="https://github.com/dusign/hexo-theme-snail" target="_blank" rel="noopener">https://github.com/dusign/hexo-theme-snail</a> Configuration的 Comment<br><a href="https://blog.csdn.net/ddxygq/article/details/86499623" target="_blank" rel="noopener">https://blog.csdn.net/ddxygq/article/details/86499623</a></p>
+<p>步骤：</p>
+<p><a href="https://github.com/settings/applications/new" target="_blank" rel="noopener">Register a new OAuth app</a></p>
+<p><img src="./2024-12-09-博客搭建记录-20241208.assets/image-20251217105040701.png" alt="image-20251217105040701"></p>
+<p>新页面有：Client ID、Client secrets</p>
+<p>修改<code>F:\myBlog_241208\blog\_config.yml</code>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">comment:</span><br><span class="line">  gitment:</span><br><span class="line">    enable: true</span><br><span class="line">    owner: Dowerinne</span><br><span class="line">    repo: Dowerinne.github.io</span><br><span class="line">    client_id: [新页面的Client ID]</span><br><span class="line">    client_secret: [Client secrets]</span><br></pre></td></tr></table></figure>
 <h4 id="hexo命令整理：【待补充继续学习】-https-hexo-io"><a href="#hexo命令整理：【待补充继续学习】-https-hexo-io" class="headerlink" title="hexo命令整理：【待补充继续学习】 https://hexo.io/"></a>hexo命令整理：【<font color='red'>待补充继续学习</font>】 <a href="https://hexo.io/" target="_blank" rel="noopener">https://hexo.io/</a></h4><p>1.<code>hexo new &lt;articlename&gt;</code>：新建一篇博文，存放在<code>F:\myBlog_241208\blog\source\_posts\&lt;articlename&gt;.md</code>，都是markdown格式，用typora书写。</p>
 <blockquote>
 <p>所有博文都在<code>F:\myBlog_241208\blog\source\_posts\</code>目录下。</p>
 </blockquote>
-<p>2.发布/修改博文后更新：<code>hexo clean</code>   <code>hexo g -d</code></p>
+<p>2.发布/修改博文or修改配置后更新：<code>hexo clean</code>   <code>hexo g -d</code></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo g</span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure>
 <p>如果有报错，重新输入一遍命令，就没报错了。</p>
 <p>3.本地查看页面效果：<code>hexo server</code>，浏览器中再打开<code>localhost:4000</code></p>
@@ -376,6 +384,73 @@
 
         <!-- gitment start -->
         
+        <hr />
+        <div id="blog_comments"></div>
+
+<!--
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+-->
+<!--
+<link rel="stylesheet" href="/css/gitment.css">
+<script type="text/javascript" src="/js/gitment.js"></script>
+-->
+
+<script src="https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/gitment.browser.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/default.css"/>
+
+<!--
+<link rel="stylesheet" href="https://billts.site/extra_css/gitment.css">
+<script src="https://billts.site/js/gitment.js"></script>
+-->
+
+<script>
+const myTheme = {
+  render(state, instance) {
+    const container = document.createElement('div')
+    container.lang = "en-US"
+    container.className = 'gitment-container gitment-root-container'
+    
+     // your custom component
+    container.appendChild(instance.renderSomething(state, instance))
+    
+    container.appendChild(instance.renderHeader(state, instance))
+    container.appendChild(instance.renderComments(state, instance))
+    container.appendChild(instance.renderEditor(state, instance))
+    //container.appendChild(instance.renderFooter(state, instance))
+    return container
+  },
+  renderSomething(state, instance) {
+    const container = document.createElement('div')
+    container.lang = "en-US"
+    container.className = 'hello_visitor'
+    if (state.user.login) {
+      container.innerText = `Hello ${state.user.login}, Welcome to comment system`
+    }
+    return container
+  }
+}
+
+
+const gitment = new Gitment({
+    id: 'Mon Dec 09 2024 16:09:26 GMT+0800', // optional
+    owner: "Dowerinne",
+    repo: "Dowerinne.github.io",
+    oauth: {
+      client_id: "Ov23licluImKN3qIsZnR",
+      client_secret: "c05743f7f8dd073ef840a524ce2c9c32d94cf47c",
+    },
+    theme: myTheme,
+    // ...
+    // For more available options, check out the documentation below
+  })
+  
+  gitment.render('blog_comments')
+  // or
+  // gitment.render(document.getElementById('comments'))
+  // or
+  // document.body.appendChild(gitment.render())
+</script> 
         <!-- gitment end -->
 
         <!-- 来必力City版安装代码 -->
@@ -401,7 +476,7 @@
           <strong class="toc-title">Contents</strong>
           
             
-              <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#2024-12-08-博客搭建记录整理"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">2024.12.08 博客搭建记录整理</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#步骤："><span class="toc-nav-number">1.0.0.1.</span> <span class="toc-nav-text">步骤：</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#A-Snail主题安装与配置"><span class="toc-nav-number">1.0.0.2.</span> <span class="toc-nav-text">A-Snail主题安装与配置</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#配置记录："><span class="toc-nav-number">1.0.0.3.</span> <span class="toc-nav-text">配置记录：</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-5"><a class="toc-nav-link" href="#1-修改header-img：图片放入img-文件夹中。"><span class="toc-nav-number">1.0.0.3.1.</span> <span class="toc-nav-text">1.修改header_img：图片放入img&#x2F;文件夹中。</span></a></li><li class="toc-nav-item toc-nav-level-5"><a class="toc-nav-link" href="#2-每篇文章的header-img："><span class="toc-nav-number">1.0.0.3.2.</span> <span class="toc-nav-text">2.每篇文章的header_img：</span></a></li><li class="toc-nav-item toc-nav-level-5"><a class="toc-nav-link" href="#3-LaTeX-MarkDown数学公式相关："><span class="toc-nav-number">1.0.0.3.3.</span> <span class="toc-nav-text">3.LaTeX&#x2F;MarkDown数学公式相关：</span></a></li><li class="toc-nav-item toc-nav-level-5"><a class="toc-nav-link" href="#4-检查node-js，npm，hexo是否安装成功："><span class="toc-nav-number">1.0.0.3.4.</span> <span class="toc-nav-text">4.检查node.js，npm，hexo是否安装成功：</span></a></li><li class="toc-nav-item toc-nav-level-5"><a class="toc-nav-link" href="#5-页面的微小改动："><span class="toc-nav-number">1.0.0.3.5.</span> <span class="toc-nav-text">5.页面的微小改动：</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#6-页面背景颜色修改："><span class="toc-nav-number">1.0.0.4.</span> <span class="toc-nav-text">6.页面背景颜色修改：</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#hexo命令整理：【待补充继续学习】-https-hexo-io"><span class="toc-nav-number">1.0.0.5.</span> <span class="toc-nav-text">hexo命令整理：【待补充继续学习】 https:&#x2F;&#x2F;hexo.io&#x2F;</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#补充教程（供参考）："><span class="toc-nav-number">1.0.0.6.</span> <span class="toc-nav-text">补充教程（供参考）：</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#过程中遇到的一些错误的解决方案："><span class="toc-nav-number">1.0.0.7.</span> <span class="toc-nav-text">过程中遇到的一些错误的解决方案：</span></a></li></ol></li></ol></li></ol></li></ol>
+              <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#2024-12-08-博客搭建记录整理"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">2024.12.08 博客搭建记录整理</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#步骤："><span class="toc-nav-number">1.0.0.1.</span> <span class="toc-nav-text">步骤：</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#A-Snail主题安装与配置"><span class="toc-nav-number">1.0.0.2.</span> <span class="toc-nav-text">A-Snail主题安装与配置</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#配置记录："><span class="toc-nav-number">1.0.0.3.</span> <span class="toc-nav-text">配置记录：</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-5"><a class="toc-nav-link" href="#1-修改header-img：图片放入img-文件夹中。"><span class="toc-nav-number">1.0.0.3.1.</span> <span class="toc-nav-text">1.修改header_img：图片放入img&#x2F;文件夹中。</span></a></li><li class="toc-nav-item toc-nav-level-5"><a class="toc-nav-link" href="#2-每篇文章的header-img："><span class="toc-nav-number">1.0.0.3.2.</span> <span class="toc-nav-text">2.每篇文章的header_img：</span></a></li><li class="toc-nav-item toc-nav-level-5"><a class="toc-nav-link" href="#3-LaTeX-MarkDown数学公式相关："><span class="toc-nav-number">1.0.0.3.3.</span> <span class="toc-nav-text">3.LaTeX&#x2F;MarkDown数学公式相关：</span></a></li><li class="toc-nav-item toc-nav-level-5"><a class="toc-nav-link" href="#4-检查node-js，npm，hexo是否安装成功："><span class="toc-nav-number">1.0.0.3.4.</span> <span class="toc-nav-text">4.检查node.js，npm，hexo是否安装成功：</span></a></li><li class="toc-nav-item toc-nav-level-5"><a class="toc-nav-link" href="#5-页面的微小改动："><span class="toc-nav-number">1.0.0.3.5.</span> <span class="toc-nav-text">5.页面的微小改动：</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#6-页面背景颜色修改："><span class="toc-nav-number">1.0.0.4.</span> <span class="toc-nav-text">6.页面背景颜色修改：</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#7-评论区设置："><span class="toc-nav-number">1.0.0.5.</span> <span class="toc-nav-text">7.评论区设置：</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#hexo命令整理：【待补充继续学习】-https-hexo-io"><span class="toc-nav-number">1.0.0.6.</span> <span class="toc-nav-text">hexo命令整理：【待补充继续学习】 https:&#x2F;&#x2F;hexo.io&#x2F;</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#补充教程（供参考）："><span class="toc-nav-number">1.0.0.7.</span> <span class="toc-nav-text">补充教程（供参考）：</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#过程中遇到的一些错误的解决方案："><span class="toc-nav-number">1.0.0.8.</span> <span class="toc-nav-text">过程中遇到的一些错误的解决方案：</span></a></li></ol></li></ol></li></ol></li></ol>
             
           
           </div>
